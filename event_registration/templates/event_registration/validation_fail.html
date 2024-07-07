@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ticket Validation Failed</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .cross {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            position: relative;
+        }
+        .cross:before, .cross:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 10px;
+            background-color: red;
+            top: 50%;
+            left: 50%;
+            transform-origin: center;
+            animation: crossAnimation 1s ease forwards;
+        }
+        .cross:before {
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+        .cross:after {
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+        @keyframes crossAnimation {
+            from { width: 0; }
+            to { width: 50px; }
+        }
+        h1 {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="cross"></div>
+        <h1>Validation Failed</h1>
+        <p>{{ error }}</p>
+        <a href="{% url 'validate_ticket' %}" class="btn btn-danger">Try Again</a>
+    </div>
+</body>
+</html>

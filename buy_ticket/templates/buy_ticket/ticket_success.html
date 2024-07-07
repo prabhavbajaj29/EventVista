@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ticket Purchased</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .card-custom {
+            margin-top: 50px;
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center; /* Center align elements */
+        }
+        h1 {
+            color: #333;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px; /* Add spacing below the title */
+        }
+        .card-title {
+            font-size: 20px;
+            color: #007bff;
+        }
+        .card-text {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 10px; /* Add spacing between card text */
+        }
+        .event-image {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .highlight-code {
+            background-color: #f44336; /* Red background color */
+            color: white; /* White text color */
+            padding: 5px 10px; /* Padding around the code */
+            border-radius: 5px; /* Rounded corners */
+            display: inline-block; /* Display as inline block */
+        }
+        .btn {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ticket Purchased Successfully</h1>
+    <div class="container">
+        <div class="card card-custom mx-auto">
+            <div class="card-body">
+                <img src="{{ ticket.event.event_image.url }}" alt="{{ ticket.event.event_name }}" class="event-image">
+                <p class="card-text"><strong>Event:</strong> {{ ticket.event.event_name }}</p>
+                <p class="card-text"><strong>Date:</strong> {{ ticket.event.event_date }}</p>
+                <p class="card-text"><strong>Time:</strong> {{ ticket.event.event_time }}</p>
+                <p class="card-text"><strong>Unique Code:</strong> <span class="highlight-code">{{ ticket.unique_code }}</span></p>
+            </div>
+        </div>
+        <div class="text-center">
+            <a href="#" class="btn btn-primary" onclick="downloadTicket()">Download Ticket</a>
+            <button class="btn btn-success" onclick="copyCode()">Copy Code</button>
+        </div>
+    </div>
+    <p class="card-text text-center">Thank you for your purchase!</p>
+
+    <!-- Ensure html2canvas library is included -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script>
+        function downloadTicket() {
+            console.log('Attempting to download ticket...');
+            // Create a canvas from the ticket container
+            html2canvas(document.querySelector('.card-custom')).then(canvas => {
+                // Convert canvas to image and download
+                var link = document.createElement('a');
+                link.href = canvas.toDataURL();
+                link.download = 'ticket.png';
+                document.body.appendChild(link); // Append to body for Firefox compatibility
+                link.click();
+                document.body.removeChild(link); // Clean up
+                console.log('Ticket downloaded successfully.');
+            }).catch(error => {
+                console.error('Error downloading ticket:', error);
+            });
+        }
+
+        function copyCode() {
+            // Copy the unique code to the clipboard
+            var code = document.querySelector('.highlight-code').innerText;
+            navigator.clipboard.writeText(code)
+                .then(() => {
+                    alert('Code copied to clipboard: ' + code);
+                })
+                .catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+        }
+    </script>
+</body>
+</html>

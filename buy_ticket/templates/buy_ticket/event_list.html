@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">Events</h1>
+        <div class="row">
+            {% for event in events %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="{{ event.event_image.url }}" class="card-img-top" alt="{{ event.event_name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ event.event_name }}</h5>
+                            <p class="card-text">{{ event.performer_name }}</p>
+                            <p class="card-text">{{ event.event_date }} at {{ event.event_time }}</p>
+                            <p class="card-text">${{ event.ticket_price }}</p>
+                            <a href="{% url 'ticket_purchase' event.id %}" class="btn btn-primary">Buy Ticket</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
