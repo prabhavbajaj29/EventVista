@@ -2,26 +2,124 @@
 <html>
 <head>
     <title>Admin Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            padding: 20px;
+        }
+
+        .event-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #007bff; /* Blue color for section titles */
+        }
+
+        .event-card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+            max-width: 300px; /* Adjust max-width to make cards smaller */
+            width: 100%;
+            text-align: center;
+            position: relative;
+            background-color: #fff; /* White background for cards */
+        }
+
+        .event-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .event-details {
+            padding: 20px;
+        }
+
+        .event-details h2 {
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .event-details p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .ticket-code {
+            background-color: green; /* Green background for ticket codes */
+            color: #fff;
+            padding: 5px; /* Adjust padding for smaller box */
+            border-radius: 3px; /* Smaller border radius */
+            font-weight: bold;
+            position: center;
+            bottom: 5px; /* Adjust position to prevent overlap */
+            left: 5px; /* Adjust position to prevent overlap */
+            width: auto; /* Allow width to adjust based on content*/
+            size:auto;
+        }
+
+        .empty-message {
+            color: #888;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h2>Admin Profile</h2>
+    <div class="event-section">
+        <h2 class="section-title">Events Created</h2>
+        <div class="container">
+            <div class="row">
+                {% for event in created_events %}
+                <div class="col-md-4"> <!-- Adjust col-md-4 to show more cards per row -->
+                    <div class="event-card">
+                        <img src="{{ event.event_image.url }}" alt="{{ event.event_name }}" class="event-image">
+                        <div class="event-details">
+                            <h2>{{ event.event_name }}</h2>
+                            <p>Performer: {{ event.performer_name }}</p>
+                            <p>Date: {{ event.event_date }}</p>
+                            <p>Time: {{ event.event_time }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="empty-message">No events created yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
-    <h3>All Events</h3>
-    <ul>
-        {% for event in created_events %}
-            <li>{{ event.event_name }} on {{ event.event_date }}</li>
-        {% empty %}
-            <li>No events created yet.</li>
-        {% endfor %}
-    </ul>
-
-    <h3>All Tickets Bought</h3>
-    <ul>
-        {% for ticket in bought_tickets %}
-            <li>{{ ticket.event.event_name }} - Code: {{ ticket.unique_code }}</li>
-        {% empty %}
-            <li>No tickets bought yet.</li>
-        {% endfor %}
-    </ul>
+    <div class="event-section">
+        <h2 class="section-title">Tickets Bought</h2>
+        <div class="container">
+            <div class="row">
+                {% for ticket in bought_tickets %}
+                <div class="col-md-4"> <!-- Adjust col-md-4 to show more cards per row -->
+                    <div class="event-card">
+                        <img src="{{ ticket.event.event_image.url }}" alt="{{ ticket.event.event_name }}" class="event-image">
+                        <div class="event-details">
+                            <h4>{{ ticket.event.event_name }}</h4>
+                            <p>Date: {{ ticket.event.event_date }}</p>
+                            <p>Time: {{ ticket.event.event_time }}</p>
+                            <p class="ticket-code">Code: {{ ticket.unique_code }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="empty-message">No tickets bought yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 </body>
 </html>
