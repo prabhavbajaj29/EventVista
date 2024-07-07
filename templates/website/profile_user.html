@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+</head>
+<body>
+    <h2>User Profile</h2>
+
+    <h3>Your Tickets Bought</h3>
+    <ul>
+        {% for ticket in bought_tickets %}
+            <li>{{ ticket.event.event_name }} - Code: {{ ticket.unique_code }}</li>
+        {% empty %}
+            <li>No tickets bought yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

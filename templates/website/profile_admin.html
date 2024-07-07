@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Profile</title>
+</head>
+<body>
+    <h2>Admin Profile</h2>
+
+    <h3>All Events</h3>
+    <ul>
+        {% for event in created_events %}
+            <li>{{ event.event_name }} on {{ event.event_date }}</li>
+        {% empty %}
+            <li>No events created yet.</li>
+        {% endfor %}
+    </ul>
+
+    <h3>All Tickets Bought</h3>
+    <ul>
+        {% for ticket in bought_tickets %}
+            <li>{{ ticket.event.event_name }} - Code: {{ ticket.unique_code }}</li>
+        {% empty %}
+            <li>No tickets bought yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

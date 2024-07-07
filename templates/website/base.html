@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventVista</title>
+  <link rel="icon" href="https://www.logomaker.com/api/main/images/1j_ojFVGOMkX9W_reBe4hGfcyKPe6HEW21qcwWJpZyYVrFthkSYogfFj8vk9PF1ZtVwLlUpaNcs8nmElCMFQ2Rdk_D2NOo9CWHZ92GxVFbBWXyl2LXuLRqnDo0osmu5o3NoWvlzaAWE-" type="image/x-icon">
+
+  <link rel='stylesheet' href="{% static 'styles.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="ag-navbar">
+    <div class="ag-navbar-logo">
+      <a href="#" class="ag-navbar-logo-link">EventVista</a>
+    </div>
+    <ul class="ag-navbar-nav">
+      <li class="ag-navbar-item"><a href="{% url 'profile' %}" class="ag-navbar-link">Your profile</a></li>
+      {% if user.is_authenticated %}
+          <li class="ag-navbar-item"><a href="{% url 'logout' %}" class="ag-navbar-link">Logout</a></li>
+      {% else %}
+          <li class="ag-navbar-item"><a href="{% url 'login' %}" class="ag-navbar-link">Login</a></li>
+          <li class="ag-navbar-item"><a href="{% url 'signup' %}" class="ag-navbar-link">Signup</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+
+  
+
+  <div class="ag-format-container">
+    <div class="ag-courses_box">
+      <div class="ag-courses_item">
+        <a href="{% url 'event_create' %}" class="ag-courses-item_link" target="_blank">
+          <div class="ag-courses-item_bg"></div>
+          <div class="ag-courses-item_title">
+            Create event
+          </div>
+        </a>
+      </div>
+
+      <div class="ag-courses_item">
+        <a href="{% url 'event_list' %}" class="ag-courses-item_link" target="_blank">
+          <div class="ag-courses-item_bg"></div>
+
+          <div class="ag-courses-item_title">
+            Buy Tickets
+          </div>
+        </a>
+      </div>
+
+      <div class="ag-courses_item">
+        <a href="{% url 'validate_ticket' %}" class="ag-courses-item_link" target="_blank">
+          <div class="ag-courses-item_bg"></div>
+
+          <div class="ag-courses-item_title">
+            Event Registration
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
