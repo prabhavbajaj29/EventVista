@@ -47,6 +47,18 @@
         .btn {
             margin-top: 10px;
         }
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: none;
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
@@ -67,6 +79,9 @@
         </div>
     </div>
     <p class="card-text text-center">Thank you for your purchase!</p>
+
+    <!-- Notification element -->
+    <div id="notification" class="notification">Code copied to clipboard!</div>
 
     <!-- Ensure html2canvas library is included -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -94,11 +109,20 @@
             var code = document.querySelector('.highlight-code').innerText;
             navigator.clipboard.writeText(code)
                 .then(() => {
-                    alert('Code copied to clipboard: ' + code);
+                    showNotification('Code copied to clipboard!');
                 })
                 .catch(err => {
                     console.error('Failed to copy: ', err);
                 });
+        }
+
+        function showNotification(message) {
+            var notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000); // Hide after 3 seconds
         }
     </script>
 </body>
