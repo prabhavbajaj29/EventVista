@@ -2,17 +2,90 @@
 <html>
 <head>
     <title>User Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            padding: 20px;
+        }
+
+        .profile-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #007bff; /* Blue color for section titles */
+        }
+
+        .ticket-card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-width: 400px; /* Adjust max-width to fit content */
+            width: 100%;
+            margin-bottom: 20px;
+            background-color: #fff; /* White background for cards */
+        }
+
+        .ticket-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .ticket-details {
+            padding: 20px;
+        }
+
+        .ticket-details h2 {
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .ticket-details p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .ticket-code {
+            background-color: #28a745; /* Green background for ticket code */
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .empty-message {
+            color: #888;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h2>User Profile</h2>
-
-    <h3>Your Tickets Bought</h3>
-    <ul>
+    <div class="profile-section">
+        <h3>Your Tickets Bought</h3>
+        {% if bought_tickets %}
         {% for ticket in bought_tickets %}
-            <li>{{ ticket.event.event_name }} - Code: {{ ticket.unique_code }}</li>
-        {% empty %}
-            <li>No tickets bought yet.</li>
+        <div class="ticket-card">
+            <img src="{{ ticket.event.event_image.url }}" alt="{{ ticket.event.event_name }}" class="ticket-image">
+            <div class="ticket-details">
+                <h2>{{ ticket.event.event_name }}</h2>
+                <p>Date: {{ ticket.event.event_date }}</p>
+                <p>Time: {{ ticket.event.event_time }}</p>
+                <p class="ticket-code">Code: {{ ticket.unique_code }}</p>
+            </div>
+        </div>
         {% endfor %}
-    </ul>
+        {% else %}
+        <p class="empty-message">No tickets bought yet.</p>
+        {% endif %}
+    </div>
 </body>
 </html>
