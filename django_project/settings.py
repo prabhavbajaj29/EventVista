@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-4ju2n@$f9d0c=h)_g0lbb%k9&@rf(xa$d$g$&5ri$uf)*gev^4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [".replit.dev", ".replit.app",'.vercel.app']
+ALLOWED_HOSTS = [".replit.dev", ".replit.app",'.vercel.app','.now.sh']
 CSRF_TRUSTED_ORIGINS = ["https://*.replit.dev", "https://*.replit.app",'https://*.vercel.app']
 
 # Application definition
@@ -127,6 +127,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
 
 MEDIA_URL= '/media/'
